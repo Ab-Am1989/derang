@@ -166,13 +166,11 @@ class Journey(models.Model):
         verbose_name = 'سفر'
         verbose_name_plural = 'سفر'
 
-    city = models.CharField(max_length=255)
+    title = models.CharField('عنوان', max_length=255)
+    city = models.CharField('شهر', max_length=255)
     location = PlainLocationField(based_fields=['city'], zoom=7)
-    country = models.CharField('کشور', max_length=100, default='ایران')
-    province = models.CharField('استان/ایالت', max_length=100, default='تهران')
+    country = models.CharField('کشور', max_length=100)
+    province = models.CharField('استان/ایالت', max_length=100)
 
     def __str__(self):
-        return self.city
-
-
-
+        return self.title
