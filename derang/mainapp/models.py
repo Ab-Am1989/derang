@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
-from django.contrib.gis.db import models
+# from django.contrib.gis.db import models
+from location_field.models.plain import PlainLocationField
 
 
 def year_choices():
@@ -20,6 +21,7 @@ class Movie(models.Model):
 
     name = models.CharField('نام فیلم', max_length=150)
     director = models.CharField('نام کارگردان', max_length=100)
+    year_choices = year_choices()
     year = models.IntegerField('سال تولید', choices=year_choices, default=current_year)
 
     COMEDIC_GENRE = 1
@@ -163,10 +165,14 @@ class Journey(models.Model):
     class Meta:
         verbose_name = 'سفر'
         verbose_name_plural = 'سفر'
-    name = models.CharField('نام محل', max_length=200)
-    location = models.PointField()
+
+    city = models.CharField(max_length=255)
+    location = PlainLocationField(based_fields=['city'], zoom=7)
     country = models.CharField('کشور', max_length=100, default='ایران')
     province = models.CharField('استان/ایالت', max_length=100, default='تهران')
 
     def __str__(self):
-        return self.name
+        return self.city
+
+
+
