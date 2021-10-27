@@ -58,6 +58,9 @@ class Movie(models.Model):
 
     genre = models.IntegerField('سبک', choices=genre_choices)
 
+    def __str__(self):
+        return self.name
+
 
 class Book(models.Model):
     class Meta:
@@ -120,6 +123,9 @@ class Book(models.Model):
     ]
     subject = models.IntegerField('موضوع', choices=subject_choices)
 
+    def __str__(self):
+        return self.name
+
 
 class Song(models.Model):
     class Meta:
@@ -131,6 +137,11 @@ class Song(models.Model):
     singer = models.CharField('خواننده', max_length=150)
     composer = models.CharField('آهنگساز', max_length=150)
     songwriter = models.CharField('ترانه‌سرا', max_length=150)
+
+    # language: add this field later
+
+    def __str__(self):
+        return self.name
 
 
 class Theater(models.Model):
@@ -144,12 +155,18 @@ class Theater(models.Model):
     genre_choices = Movie.genre_choices
     genre = models.IntegerField('ژانر', choices=genre_choices)
 
+    def __str__(self):
+        return self.name
+
 
 class Journey(models.Model):
     class Meta:
         verbose_name = 'سفر'
         verbose_name_plural = 'سفر'
-
+    name = models.CharField('نام محل', max_length=200)
     location = models.PointField()
     country = models.CharField('کشور', max_length=100, default='ایران')
     province = models.CharField('استان/ایالت', max_length=100, default='تهران')
+
+    def __str__(self):
+        return self.name
